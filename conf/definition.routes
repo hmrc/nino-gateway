@@ -1,0 +1,2 @@
+GET        /api/definition                                  uk.gov.hmrc.ninogateway.apiplatform.DocumentationController.definition()
+GET        /api/conf/:version/*file                         uk.gov.hmrc.ninogateway.apiplatform.DocumentationController.raml(version, file)

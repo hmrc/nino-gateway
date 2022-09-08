@@ -1,0 +1,45 @@
+#%RAML 1.0
+---
+title: NINO
+version: 1.0
+
+protocols: [ HTTPS ]
+baseUri: https://api.service.hmrc.gov.uk/
+
+documentation:
+ - title: Overview
+   content: !include docs/overview.md
+ - title: Versioning
+   content: !include https://developer.service.hmrc.gov.uk/api-documentation/assets/common/docs/versioning.md
+ - title: Errors
+   content: !include https://developer.service.hmrc.gov.uk/api-documentation/assets/common/docs/errors.md
+
+mediaType: application/hal+json
+
+uses:
+  sec: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/securitySchemes.raml
+  headers: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/headers.raml
+  annotations: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/annotations.raml
+  types: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/types.raml
+  requiredHeaders: required-headers.raml
+
+/misc/nino:
+  /check:
+    /insights:
+      post:
+        displayName: NINO insights
+        description: Check if the provided NINO is valid
+        is:
+          - headers.acceptHeader
+          - requiredHeaders.userAgentHeader
+        securedBy: [ sec.x-application ]
+        body:
+          application/json:
+              type: !include docs/request.json
+              example: !include docs/request-sample.json
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include docs/response.json
+                example: !include docs/response-sample.json
