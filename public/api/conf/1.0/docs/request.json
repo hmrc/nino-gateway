@@ -1,0 +1,23 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1614266033.json",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "nino"
+  ],
+  "properties": {
+    "nino": {
+      "$id": "#root/nino",
+      "title": "NINO",
+      "description": "The NINO to check",
+      "type": "string",
+      "maxLength": 9,
+      "minLength": 9,
+      "examples": [
+        "AB123456A"
+      ]
+    }
+  }
+}
