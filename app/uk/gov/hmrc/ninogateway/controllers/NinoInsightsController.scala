@@ -35,7 +35,7 @@ class NinoInsightsController @Inject()(cc: ControllerComponents, config: AppConf
       val path = request.target.uri.toString.replace("nino-gateway", "nino-insights")
       val url = s"${config.insightsBaseUrl}$path"
 
-      connector.forward(request, url)
+      connector.forward(request, url, config.internalAuthToken)
     }
   }
 
