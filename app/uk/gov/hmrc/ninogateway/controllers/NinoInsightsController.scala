@@ -17,10 +17,10 @@
 package uk.gov.hmrc.ninogateway.controllers
 
 import play.api.mvc._
-import uk.gov.hmrc.auth.core.AuthProvider.PrivilegedApplication
+import uk.gov.hmrc.auth.core.AuthProvider.StandardApplication
 import uk.gov.hmrc.auth.core.{AuthConnector, AuthProviders}
-import uk.gov.hmrc.ninogateway.{DownstreamConnector, ToggledAuthorisedFunctions}
 import uk.gov.hmrc.ninogateway.config.AppConfig
+import uk.gov.hmrc.ninogateway.{DownstreamConnector, ToggledAuthorisedFunctions}
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 
 import javax.inject.{Inject, Singleton}
@@ -31,7 +31,7 @@ class NinoInsightsController @Inject()(cc: ControllerComponents, config: AppConf
   extends BackendController(cc)  with ToggledAuthorisedFunctions {
 
   def any(): Action[AnyContent] = Action.async { implicit request =>
-    toggledAuthorised(config.rejectInternalTraffic, AuthProviders(PrivilegedApplication)) {
+    toggledAuthorised(config.rejectInternalTraffic, AuthProviders(StandardApplication)) {
       val path = request.target.uri.toString.replace("nino-gateway", "nino-insights")
       val url = s"${config.insightsBaseUrl}$path"
 
