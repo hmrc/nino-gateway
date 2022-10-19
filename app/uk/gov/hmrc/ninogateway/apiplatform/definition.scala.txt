@@ -6,6 +6,7 @@
     "name": "NINO",
     "description": "Validation, verification and insights into NINO - provided by the Customer Insight Platform",
     "context": "misc/nino",
+    "categories": ["PRIVATE_GOVERNMENT"],
     "versions": [
       {
         "version": "1.0",
