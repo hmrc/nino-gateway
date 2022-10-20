@@ -1,31 +1,9 @@
-NINO Insights
----------------------
+### NINO Insights
 
-`nino-insights` provides insights for the NINO provided.
+This API enables your application to get an opinion of the riskiness of a NINO.
 
-Given a request of the following form
+Given a NINO, the response will provide:
 
-```json
-{
-  "nino": "AB123456A"
-}
-```
-
-the API may provide a response of the following form
-
-```json
-{
-    "ninoInsightsCorrelationId": "ab8514f3-0f3c-4823-aba6-58f2222c33f1",
-    "riskScore": 100,
-    "reason": "NINO_ON_WATCH_LIST"
-}
-```
-
-* `ninoInsightsCorrelationId` - A unique `UUID` to allow the request/response to be tracked
-* `riskScore`     - A score indicating the _riskiness_ of the NINO in question. `0` indicates low risk and `100` indicate high risk
-* `reason`        - The reason for the score. `NINO_ON_WATCH_LIST` indicates the NINO in question was found on a watch list, `NINO_NOT_ON_WATCH_LIST` indicates it was not found on any watch list
-
-
-### Response status codes
-* **200** - The request was serviced
-* **400** - The request payload was not valid
+* Risk score from 0 (no risk) to 100 (high risk)
+* Reason providing an indication of why the risk score has been allocated
+* Correlation Id - so you can reference the transaction in any feedback
