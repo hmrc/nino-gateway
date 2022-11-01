@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.ninogateway.controllers
 
+import play.api.Logger
 import play.api.mvc._
 import uk.gov.hmrc.auth.core.AuthProvider.StandardApplication
 import uk.gov.hmrc.auth.core.{AuthConnector, AuthProviders}
@@ -30,6 +31,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class NinoInsightsController @Inject()(cc: ControllerComponents, config: AppConfig, connector: DownstreamConnector, val authConnector: AuthConnector)
   extends BackendController(cc)  with ToggledAuthorisedFunctions {
 
+  private val logger = Logger(this.getClass.getSimpleName)
+
   def any(): Action[AnyContent] = Action.async { implicit request =>
     toggledAuthorised(config.rejectInternalTraffic, AuthProviders(StandardApplication)) {
       val path = request.target.uri.toString.replace("nino-gateway", "nino-insights")
@@ -39,4 +42,17 @@ class NinoInsightsController @Inject()(cc: ControllerComponents, config: AppConf
     }
   }
 
+  def checkConnectivity(): Unit = {
+    val url = s"${config.insightsBaseUrl}/check/insights"
+    connector.checkConnectivity(url, config.internalAuthToken).map {
+      result =>
+        if (result) {
+          logger.info("Connectivity to nino-insights established")
+        } else {
+          logger.error("ERROR: Could not connect to nino-insights")
+        }
+    }
+  }
+
+  checkConnectivity()
 }
