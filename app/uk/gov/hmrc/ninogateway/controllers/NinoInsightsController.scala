@@ -25,10 +25,10 @@ import uk.gov.hmrc.ninogateway.{DownstreamConnector, ToggledAuthorisedFunctions}
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 
 import javax.inject.{Inject, Singleton}
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.ExecutionContext
 
 @Singleton()
-class NinoInsightsController @Inject()(cc: ControllerComponents, config: AppConfig, connector: DownstreamConnector, val authConnector: AuthConnector)
+class NinoInsightsController @Inject()(cc: ControllerComponents, config: AppConfig, connector: DownstreamConnector, val authConnector: AuthConnector)(implicit ec: ExecutionContext)
   extends BackendController(cc)  with ToggledAuthorisedFunctions {
 
   private val logger = Logger(this.getClass.getSimpleName)
