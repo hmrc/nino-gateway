@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: NINO
+  contact: {}
+  version: '1.0'
+  description:
+    $ref: 'docs/overview.md'
+servers:
+  - url: https://test-api.service.hmrc.gov.uk/misc/nino
+    description: Sandbox
+  - url: https://api.service.hmrc.gov.uk/test/misc/nino
+    description: Production
+paths:
+  /check/insights:
+    post:
+      summary: NINO insights
+      description: >
+        Check if the provided NINO is valid
+      operationId: NinoInsights
+      security:
+        - applicationRestricted: [ ]
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: 'docs/request.json'
+            example:
+              $ref: 'docs/request-sample.json'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: 'docs/response.json'
+              example:
+                $ref: 'docs/response-sample.json'
+      deprecated: false
+components:
+  securitySchemes:
+    applicationRestricted:
+      type: oauth2
+      description: |
+        HMRC supports OAuth 2.0 for authenticating application restricted API requests using an OAuth 2.0 Bearer Token in the AUTHORIZATION header.
+        See https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/application-restricted-endpoints for details.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.service.hmrc.gov.uk/oauth/token
+          scopes: { }
+  schemas:
