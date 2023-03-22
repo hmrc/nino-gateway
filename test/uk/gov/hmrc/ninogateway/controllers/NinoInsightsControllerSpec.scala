@@ -54,7 +54,7 @@ class NinoInsightsControllerSpec extends AnyWordSpec with Matchers with GuiceOne
       Server.withRouterFromComponents(ServerConfig(port = Some(insightsPort))) { components =>
         import components.{defaultActionBuilder => Action}
         {
-          case r@SPOST(p"/nino-insights/check/insights") =>
+          case r@SPOST(p"/nino-insights-proxy/check/insights") =>
             r.headers.get("True-Calling-Client") shouldBe Some("example-service")
             r.headers.get("Authorization") shouldBe Some("2345")
             Action(Ok(response).withHeaders("Content-Type" -> "application/json"))
@@ -77,7 +77,7 @@ class NinoInsightsControllerSpec extends AnyWordSpec with Matchers with GuiceOne
       Server.withRouterFromComponents(ServerConfig(port = Some(insightsPort))) { components =>
         import components.{defaultActionBuilder => Action}
         {
-          case r@SPOST(p"/nino-insights/check/insights") => Action(
+          case r@SPOST(p"/nino-insights-proxy/check/insights") => Action(
             BadRequest(errorResponse).withHeaders("Content-Type" -> "application/json"))
         }
       } { _ =>
@@ -97,7 +97,7 @@ class NinoInsightsControllerSpec extends AnyWordSpec with Matchers with GuiceOne
       Server.withRouterFromComponents(ServerConfig(port = Some(insightsPort))) { components =>
         import components.{defaultActionBuilder => Action}
         {
-          case r@SPOST(p"/nino-insights/check/insights") => Action(
+          case r@SPOST(p"/nino-insights-proxy/check/insights") => Action(
             BadRequest(errorResponse).withHeaders("Content-Type" -> "application/json"))
         }
       } { _ =>
