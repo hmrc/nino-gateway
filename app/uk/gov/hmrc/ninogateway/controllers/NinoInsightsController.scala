@@ -35,7 +35,7 @@ class NinoInsightsController @Inject()(cc: ControllerComponents, config: AppConf
 
   def any(): Action[AnyContent] = Action.async { implicit request =>
     toggledAuthorised(config.rejectInternalTraffic, AuthProviders(StandardApplication)) {
-      val path = request.target.uri.toString.replace("nino-gateway", "nino-insights-proxy")
+      val path = request.target.uri.toString.replace("nino-gateway", "nino-insights")
       val url = s"${config.insightsBaseUrl}$path"
 
       connector.forward(request, url, config.internalAuthToken)
