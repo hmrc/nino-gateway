@@ -1,10 +1,20 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   title: NINO
   contact: {}
   version: '1.0'
-  description:
-    $ref: 'docs/overview.md'
+  description: >
+    # Overview
+
+    ### NINO Insights
+
+    This API enables your application to get an opinion of the riskiness of a NINO.
+
+    Given a NINO, the response will provide:
+
+    * Risk score from 0 (no risk) to 100 (high risk)
+    * Reason providing an indication of why the risk score has been allocated
+    * Correlation Id - so you can reference the transaction in any feedback
 servers:
   - url: https://test-api.service.hmrc.gov.uk/misc/nino
     description: Sandbox
@@ -51,4 +61,3 @@ components:
         clientCredentials:
           tokenUrl: https://api.service.hmrc.gov.uk/oauth/token
           scopes: { }
-  schemas:
