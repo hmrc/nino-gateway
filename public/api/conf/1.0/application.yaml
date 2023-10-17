@@ -1,7 +1,9 @@
 openapi: 3.0.3
 info:
   title: NINO
-  contact: {}
+  contact:
+    name: CIP Insights & Reputation Team
+    email: cip-insights-and-reputation-g@digital.hmrc.gov.uk
   version: '1.0'
   description: >
     # Overview
