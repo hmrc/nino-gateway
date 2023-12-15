@@ -18,6 +18,3 @@ lazy val it = project.in(file("it"))
   .enablePlugins(play.sbt.PlayScala)
   .dependsOn(microservice % "test->test")
   .settings(DefaultBuildSettings.itSettings)
-  .settings(
-    libraryDependencies ++= AppDependencies.itTest
-  )
