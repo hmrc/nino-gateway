@@ -1,7 +1,6 @@
 @import play.api.libs.json.Json
 @(status: String)
 {
-  "scopes": [],
   "api": {
     "name": "NINO",
     "description": "Validation, verification and insights into NINO - provided by the Customer Insight Platform",
