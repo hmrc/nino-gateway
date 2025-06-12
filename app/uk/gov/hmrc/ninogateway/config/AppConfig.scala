@@ -24,7 +24,5 @@ import javax.inject.{Inject, Singleton}
 @Singleton
 class AppConfig @Inject()(config: Configuration, servicesConfig: ServicesConfig, val environment: Environment) {
   val appName: String = config.get[String]("appName")
-  val rejectInternalTraffic: Boolean = config.getOptional[Boolean]("microservice.rejectInternalTraffic").getOrElse(false)
-  val internalAuthToken: String = config.get[String]("microservice.services.internal-auth.token")
   val insightsBaseUrl: String = servicesConfig.baseUrl("nino-insights")
 }

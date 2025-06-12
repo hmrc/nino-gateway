@@ -31,7 +31,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class DownstreamConnector @Inject()(httpClient: HttpClient) {
   private val logger = Logger(this.getClass.getSimpleName)
 
-  def forward(request: Request[AnyContent], url: String, authToken: String)(implicit ec: ExecutionContext): Future[Result] = {
+  def forward(request: Request[AnyContent], url: String)(implicit ec: ExecutionContext): Future[Result] = {
     import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
 
     logger.info(s"Forwarding to downstream url: $url")
@@ -39,7 +39,7 @@ class DownstreamConnector @Inject()(httpClient: HttpClient) {
     (request.method, request.headers(CONTENT_TYPE).toLowerCase()) match {
       case ("POST", "application/json") =>
         val onwardHeaders = request.headers.remove(CONTENT_LENGTH, HOST, AUTHORIZATION).headers
-        implicit val hc: HeaderCarrier = HeaderCarrier(authorization = Some(Authorization(authToken)))
+        implicit val hc: HeaderCarrier = HeaderCarrier()
 
         try {
           httpClient.POST[Option[JsValue], HttpResponse](url = url, body = request.body.asJson, onwardHeaders)
@@ -64,9 +64,9 @@ class DownstreamConnector @Inject()(httpClient: HttpClient) {
     }
   }
 
-  def checkConnectivity(url: String, authToken: String)(implicit ec: ExecutionContext): Future[Boolean] = {
+  def checkConnectivity(url: String)(implicit ec: ExecutionContext): Future[Boolean] = {
     import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
-    implicit val hc: HeaderCarrier = HeaderCarrier(authorization = Some(Authorization(authToken)))
+    implicit val hc: HeaderCarrier = HeaderCarrier()
 
     try {
       httpClient.POST[Option[JsValue], HttpResponse](url = url, body = Some(Json.parse("{}"))).map {
