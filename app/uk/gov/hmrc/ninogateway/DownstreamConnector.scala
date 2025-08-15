@@ -22,7 +22,7 @@ import play.api.http.{HttpEntity, MimeTypes}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Results.{BadGateway, InternalServerError, MethodNotAllowed}
 import play.api.mvc.{AnyContent, Request, ResponseHeader, Result}
-import uk.gov.hmrc.http.{Authorization, HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
