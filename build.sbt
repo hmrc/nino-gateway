@@ -12,7 +12,6 @@ lazy val microservice = Project(appName, file("."))
     scalacOptions += "-Wconf:src=routes/.*:s",
   )
   .settings(PlayKeys.playDefaultPort := 8344)
-  .settings(resolvers += Resolver.jcenterRepo)
 
 lazy val it = project.in(file("it"))
   .enablePlugins(play.sbt.PlayScala)

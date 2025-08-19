@@ -16,19 +16,19 @@
 
 package uk.gov.hmrc.ninogateway
 
+import play.api.http.HttpErrorHandler
 import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND}
-import play.api.{Configuration, Logger}
-import play.api.http.{HttpErrorHandler, MimeTypes}
 import play.api.libs.json.Json
 import play.api.libs.json.Json.toJson
 import play.api.mvc.Results.{BadRequest, NotFound, Status}
 import play.api.mvc.{RequestHeader, Result}
+import play.api.{Configuration, Logger}
 import uk.gov.hmrc.auth.core.AuthorisationException
 import uk.gov.hmrc.http.{HeaderCarrier, HttpException, JsValidationException, NotFoundException, UpstreamErrorResponse}
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendHeaderCarrierProvider
-import uk.gov.hmrc.play.bootstrap.backend.http.ErrorResponse
 import uk.gov.hmrc.play.bootstrap.config.HttpAuditEvent
+import uk.gov.hmrc.play.bootstrap.http.ErrorResponse
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
