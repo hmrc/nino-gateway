@@ -18,7 +18,7 @@ package uk.gov.hmrc.ninogateway.connectors
 
 import play.api.Logging
 import play.api.http.HeaderNames._
-import play.api.http.{HttpEntity, MimeTypes}
+import play.api.http.HttpEntity
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Results.{BadGateway, InternalServerError, MethodNotAllowed}
 import play.api.mvc.{Request, ResponseHeader, Result}
@@ -34,8 +34,8 @@ import scala.concurrent.{ExecutionContext, Future}
 class DownstreamConnector @Inject()(httpClient: HttpClientV2) extends Logging {
 
   def forward(request: Request[JsValue], url: String)(implicit ec: ExecutionContext): Future[Result] =
-    (request.method, request.headers(CONTENT_TYPE).toLowerCase()) match {
-      case ("POST", MimeTypes.JSON) =>
+    request.method match {
+      case "POST" =>
 
         implicit val hc: HeaderCarrier = HeaderCarrier()
 
